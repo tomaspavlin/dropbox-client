@@ -1,5 +1,5 @@
 var dropbox = (function(){
-	var CLIENT_ID = "5tssbcxxu7f3w8t"
+	var CLIENT_ID = "m61dg1tp46ggqy4"
 	var AUTH_URL = "https://www.dropbox.com/1/oauth2/authorize?";
 
 	/* returns the access token if available (already authorized), in other case returns undefined */

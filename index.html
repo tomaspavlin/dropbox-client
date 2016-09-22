@@ -15,7 +15,7 @@ $(document).ready(function(){
 	// enable buttons if token available
 	if(dropbox.isTokenAvailable()){
 		$('#infobtn').removeAttr("disabled");
-		$('#upload').removeAttr("disabled");
+		$('#select').removeAttr("disabled");
 	}
 
 
@@ -26,13 +26,29 @@ $(document).ready(function(){
 			$('#info').text(info);
 		});
 	});
-	$('#upload').click(function(){
-		// TODO
-		alert("TODO");
+  var select_input = $('#select_input');
+  select_input.change(function(e){
+    var explorer = new FileReader();
+    explorer.onload = function () {
+      var image = new Image();
+      image.src = explorer.result;
+      $('#image').append(image);
+      $('#upload').removeAttr("disabled");
+    }
+    explorer.readAsDataURL(this.files[0]);
+  });
+	$('#select').click(function(){
+    select_input.click();
 	});
 });
 
 </script>
+
+<style>
+#image img {
+  max-width: 200px;
+}
+</style>
 
 </head>
 <body>
@@ -48,6 +64,11 @@ $(document).ready(function(){
 		<p>
 			<button class="btn btn-default" id="infobtn" disabled>Get account info</button>
 			<p id="info"></p>
+		</p>
+		<p>
+      <input type="file" id="select_input" style="display: none;">
+			<button class="btn btn-default" id="select" disabled>Select image</button>
+      <div id="image"></div>
 		</p>
 		<p>
 			<button class="btn btn-default" id="upload" disabled>Upload</button>

@@ -3,10 +3,32 @@
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="utils.js"></script>
+<script src="dropbox.js"></script>
+<script>
+
+$(document).ready(function(){
+	// show token if available
+	$('#token').text(dropbox.isTokenAvailable() ? dropbox.getToken() : "No token available yet. You have to click 'Authorize' first.");
+	
+	$('#authorize').click(dropbox.authorize);
+});
+
+</script>
+
 </head>
 <body>
 	<section class="container">
 		<h1>Dropbox Client</h1>
+		<p>
+			<button class="btn btn-default" id="authorize">Authorize</button>
+		</p>
+		<p>
+			<strong>Access token:</strong>
+			<samp id="token">---</samp>
+		</p>
+		
 
 	</section>
 </body>

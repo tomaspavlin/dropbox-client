@@ -1,10 +1,12 @@
 var dropbox = (function(){
-	var CLIENT_ID = "m61dg1tp46ggqy4"
+	var CLIENT_ID = "m61dg1tp46ggqy4";
 	var AUTH_URL = "https://www.dropbox.com/1/oauth2/authorize?";
+  var ACCESS_TOKEN;
 
 	/* returns the access token if available (already authorized), in other case returns undefined */
 	var getToken = function(){
-		return utils.getUrlParameter('access_token');
+    ACCESS_TOKEN = ACCESS_TOKEN || utils.getUrlParameter('access_token');
+		return ACCESS_TOKEN;
 	};
 
 	/* returns if the access token is available (already authorized) */
@@ -40,8 +42,18 @@ var dropbox = (function(){
 		});
 	};
 
-	var uploadImage = function(img){
-		// TODO: upload image to dropbox
+	var uploadImage = function(fileName, data, cb){
+    $.ajax({
+      url: 'https://content.dropboxapi.com/1/files_put/auto/' + fileName +
+        '?access_token=' + getToken(),
+      type: 'POST',
+      data: data,
+      success: function() { cb() },
+      error: function(e) { cb(e) },
+      cache: false,
+      contentType: false,
+      processData: false
+    });
 	};
 
 

@@ -1,7 +1,7 @@
 var utils = (function(){
 
 	var getUrlParameter = function (sParam) {
-	    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+	    var sPageURL = decodeURIComponent(window.location.hash.substring(1)),
 	        sURLVariables = sPageURL.split('&'),
 	        sParameterName,
 	        i;

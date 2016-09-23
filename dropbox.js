@@ -1,5 +1,5 @@
 var dropbox = (function(){
-	var CLIENT_ID = "m61dg1tp46ggqy4";
+	var CLIENT_ID = "5tssbcxxu7f3w8t";
 	var AUTH_URL = "https://www.dropbox.com/1/oauth2/authorize?";
   var ACCESS_TOKEN;
 
@@ -16,7 +16,7 @@ var dropbox = (function(){
 
 	/* redirects to dropbox auth url with the callers redirection url */
 	var authorize = function(){
-		var redirect_uri = document.location.href.split('?')[0];
+		var redirect_uri = document.location.href.split('?')[0].split('#')[0];
 
 		var params = {
 			'response_type': 'token',

@@ -38,11 +38,16 @@ $(document).ready(function(){
 
 		});
 	});
-	
+
 	$('#dircontentbtn').click(function(){
 		dropbox.getDirContent(function(obj){
 
 			var cList = $('ul#dircontent');
+			if(obj.length == 0){
+				cList.text("Directory is empty");
+				return;
+			}
+
 			cList.text("");
 
 			$.each(obj, function(i, a){

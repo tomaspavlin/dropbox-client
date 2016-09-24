@@ -39,7 +39,21 @@ var dropbox = (function(){
 		$.get('https://api.dropboxapi.com/1/account/info', p, function(data){
 			// data is string, not object
 			callback(data);
-		});
+		}, 'json');
+	};
+
+	var getDirContent = function(callback){
+		var p = {
+			'access_token': getToken()
+		};
+
+		$.get('https://api.dropboxapi.com/1/metadata/auto', p, function(data){
+			// data is string, not object
+			var list = $.map(data['contents'], function(f){
+				return f['path'];
+			});
+			callback(list);
+		}, 'json');
 	};
 
 	var uploadImage = function(fileName, data, cb){
@@ -64,6 +78,7 @@ var dropbox = (function(){
 		isTokenAvailable: isTokenAvailable,
 		authorize: authorize,
 		getAccountInfo: getAccountInfo,
+		getDirContent: getDirContent,
 		uploadImage: uploadImage
 	};
 

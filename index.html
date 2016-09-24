@@ -19,6 +19,7 @@ $(document).ready(function(){
 	// enable buttons if token available
 	if(dropbox.isTokenAvailable()){
 		$('#infobtn').removeAttr("disabled");
+		$('#dircontentbtn').removeAttr("disabled");
 		$('#select').removeAttr("disabled");
 	}
 
@@ -26,9 +27,30 @@ $(document).ready(function(){
 	// set btns click triggers
   var select_input = $('#select_input');
 	$('#authorize').click(dropbox.authorize);
+
 	$('#infobtn').click(function(){
 		dropbox.getAccountInfo(function(info){
-			$('#info').text(info);
+			console.log(info);
+			var str = JSON.stringify(info, null, 2);
+			$('#info')
+				.text(str)
+				.removeClass('hidden');
+
+		});
+	});
+	
+	$('#dircontentbtn').click(function(){
+		dropbox.getDirContent(function(obj){
+
+			var cList = $('ul#dircontent');
+			cList.text("");
+
+			$.each(obj, function(i, a){
+		    var li = $('<li/>')
+		        .appendTo(cList)
+		        .text(a);
+		   
+			});
 		});
 	});
   select_input.change(function(e){
@@ -79,7 +101,13 @@ $(document).ready(function(){
 		</p>
 		<p>
 			<button class="btn btn-default" id="infobtn" disabled>Get account info</button>
-			<p id="info"></p>
+			<pre class="hidden" id="info"></pre>
+		</p>
+		<p>
+			<button class="btn btn-default" id="dircontentbtn" disabled>Get directory content</button>
+			<p>
+				<ul id="dircontent"></ul>
+			</p>
 		</p>
 		<p>
       <input type="file" id="select_input" style="display: none;">
